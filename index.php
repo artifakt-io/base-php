@@ -106,7 +106,7 @@
           <p>You just have to add your code.</p>
           <p>
             Useful links:
-            <span class="text--purple"><a href="phpinfo.php">phpinfo</a></span>
+            <span class="text--purple"><a href="info.php">phpinfo</a></span>
             -
             <span class="text--purple"><a href="apc.php">APCu</a></span>
             -
