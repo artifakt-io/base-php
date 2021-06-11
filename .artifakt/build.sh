@@ -4,18 +4,20 @@ echo "BUILD.SH CUSTOM SCRIPT - BEGIN >>>>>>>>"
 
 RUNTIME_NAME="PHP"
 RUNTIME_LOGO="php.png"
-ARCHIVE_FILE=static-page-main
+ARCHIVE_FILE=main
+WORKDIR=/var/www/html
 
 env
 
-curl -sSLO https://gitlab.com/djalal/static-page/-/archive/main/${ARCHIVE_FILE}.tar.gz && \
+mkdir -p $WORKDIR
+curl -sSLO https://github.com/artifakt-io/base-html/archive/refs/heads/${ARCHIVE_FILE}.tar.gz && \
   tar -xzf ${ARCHIVE_FILE}.tar.gz -C /tmp && \
-  mv /tmp/${ARCHIVE_FILE}/* /var/www/html && \
-  chown -R www-data:www-data /var/www/html && \
+  mv /tmp/${ARCHIVE_FILE}/* ${WORKDIR} && \
+  chown -R www-data:www-data ${WORKDIR} && \
   rm ${ARCHIVE_FILE}.tar.gz
 
-sed -i "s/__RUNTIME_NAME__/${RUNTIME_NAME}/" /var/www/html/index.html
-sed -i "s/__RUNTIME_LOGO__/${RUNTIME_LOGO}/" /var/www/html/index.html
+sed -i "s/__RUNTIME_NAME__/${RUNTIME_NAME}/" ${WORKDIR}/index.html
+sed -i "s/__RUNTIME_LOGO__/${RUNTIME_LOGO}/" ${WORKDIR}/index.html
 
 rm /var/www/html/index.php
 
