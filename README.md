@@ -59,7 +59,7 @@ What happens when you build the image with our standard Dockerfile?
 
 1. base image is pulled from Artifakt free registry
 2. local Dockerfile is built
-3. if custom build args exists that are sourced from local repo
+3. if custom build args exist they are sourced from local repo
 4. if a build.sh script is available, it is executed
 5. overall, during build step we add code source and install packages and internal dependencies
 6. if the special folder ‘.artifakt’ is found it is copied at the container root file system for later use.
