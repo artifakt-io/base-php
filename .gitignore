@@ -1,2 +1,6 @@
-
 .DS_Store
+/vendor/*
+/tmp/*
+!/tmp/empty
+/logs/*
+!/logs/empty
