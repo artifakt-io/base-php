@@ -1,24 +1,28 @@
 #!/bin/bash
 
-echo "BUILD.SH CUSTOM SCRIPT - BEGIN >>>>>>>>"
+set -e
+
+echo ">>>>>>>>>>>>>> START CUSTOM BUILD SCRIPT <<<<<<<<<<<<<<<<< "
+echo "------------------------------------------------------------"
+echo "The following build args are available:"
+env
+echo "------------------------------------------------------------"
 
 RUNTIME_NAME="PHP"
 RUNTIME_LOGO="php.png"
-ARCHIVE_FILE=main
-WORKDIR=/var/www/html
+REPO_NAME=base-html
+REPO_BRANCH=main
+ARCHIVE_FILE=$REPO_NAME-$REPO_BRANCH
 
-env
+curl -sSLO https://github.com/artifakt-io/${REPO_NAME}/archive/refs/heads/${REPO_BRANCH}.tar.gz && \
+	tar -xzf ${REPO_BRANCH}.tar.gz -C /tmp && \
+	mv /tmp/${ARCHIVE_FILE}/* /var/www/html && \
+	chown -R www-data:www-data /var/www/html && \
+	rm ${REPO_BRANCH}.tar.gz
 
-mkdir -p $WORKDIR
-curl -sSLO https://github.com/artifakt-io/base-html/archive/refs/heads/${ARCHIVE_FILE}.tar.gz && \
-  tar -xzf ${ARCHIVE_FILE}.tar.gz -C /tmp && \
-  mv /tmp/${ARCHIVE_FILE}/* ${WORKDIR} && \
-  chown -R www-data:www-data ${WORKDIR} && \
-  rm ${ARCHIVE_FILE}.tar.gz
-
-sed -i "s/__RUNTIME_NAME__/${RUNTIME_NAME}/" ${WORKDIR}/index.html
-sed -i "s/__RUNTIME_LOGO__/${RUNTIME_LOGO}/" ${WORKDIR}/index.html
+sed -i "s/__RUNTIME_NAME__/${RUNTIME_NAME}/" /var/www/html/index.html
+sed -i "s/__RUNTIME_LOGO__/${RUNTIME_LOGO}/" /var/www/html/index.html
 
 rm /var/www/html/index.php
 
-echo "BUILD.SH CUSTOM SCRIPT - END <<<<<<<<<"
+echo ">>>>>>>>>>>>>> END CUSTOM BUILD SCRIPT <<<<<<<<<<<<<<<<< "
