@@ -13,4 +13,4 @@ RUN --mount=source=artifakt-custom-build-args,target=/tmp/build-args \
     if [ -f /tmp/build-args ]; then source /tmp/build-args; fi && \
     if [ -f /.artifakt/build.sh ]; then /.artifakt/build.sh; fi
 
-RUN [ -f composer.lock ] && composer install --no-cache --optimize-autoloader --no-interaction --no-ansi --no-dev || true
+RUN [ -f composer.lock ] && su www-data -s /bin/bash -c "composer install --no-cache --optimize-autoloader --no-interaction --no-ansi --no-dev" || true

@@ -1,7 +1,11 @@
 #!/bin/bash
 
-echo "ENTRYPOINT.SH CUSTOM SCRIPT - BEGIN >>>>>>>>"
+set -e
 
+echo ">>>>>>>>>>>>>> START CUSTOM ENTRYPOINT SCRIPT <<<<<<<<<<<<<<<<< "
+echo "------------------------------------------------------------"
+echo "The following build args are available:"
 env
+echo "------------------------------------------------------------"
 
-echo "ENTRYPOINT.SH CUSTOM SCRIPT - END <<<<<<<<<"
+echo ">>>>>>>>>>>>>> END CUSTOM ENTRYPOINT SCRIPT <<<<<<<<<<<<<<<<< "
