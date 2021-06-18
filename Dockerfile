@@ -1,4 +1,4 @@
-FROM registry.artifakt.io/php:8-apache
+FROM registry.artifakt.io/php:7.4-apache
 
 COPY --chown=www-data:www-data . /var/www/html/
 WORKDIR /var/www/html
