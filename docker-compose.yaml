@@ -4,6 +4,8 @@ services:
   app:
     build: 
         context: .
+        args:
+          ARTIFAKT_COMPOSER_COMMAND: "--no-cache --optimize-autoloader --no-interaction --no-ansi --no-dev"
     image: base-php:latest
     ports:
       - "8000:80"
