@@ -1,12 +1,15 @@
 FROM registry.artifakt.io/php:8-apache
 
+ARG ARTIFAKT_COMPOSER_INSTALL_PARAMS=${ARTIFAKT_COMPOSER_INSTALL_PARAMS:-"--no-cache --optimize-autoloader --no-interaction --no-ansi --no-dev"}
 ARG CODE_ROOT=.
 
 COPY --chown=www-data:www-data $CODE_ROOT /var/www/html/
 
 WORKDIR /var/www/html/
 
-RUN [ -f composer.lock ] && composer install --no-cache --optimize-autoloader --no-interaction --no-ansi --no-dev || true
+USER www-data
+RUN [ -f composer.lock ] && composer install $ARTIFAKT_COMPOSER_INSTALL_PARAMS || true
+USER root
 
 # copy the artifakt folder on root
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
