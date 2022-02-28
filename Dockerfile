@@ -1,4 +1,4 @@
-FROM registry.artifakt.io/php:8-apache
+FROM registry.artifakt.io/php:8-fpm
 
 ARG CODE_ROOT=.
 
